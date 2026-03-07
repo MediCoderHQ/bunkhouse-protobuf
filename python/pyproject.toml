@@ -10,8 +10,13 @@ readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.9"
 dependencies = [
-    "grpcio",
-    "protobuf>=4.25.0"
+    "protobuf>=5.26",
+]
+
+[project.optional-dependencies]
+dev = [
+    "grpcio-tools>=1.62",
+    "pytest>=8.0",
 ]
 
 [tool.setuptools.dynamic]
@@ -19,7 +24,7 @@ version = {attr = "bunkhouse_protobuf._version.__version__"}
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["bunkhouse_protobuf*"]
+include = ["bunkhouse_protobuf*", "bunkhouse*"]
 
 [tool.setuptools.package-data]
 bunkhouse_protobuf = ["py.typed"]
