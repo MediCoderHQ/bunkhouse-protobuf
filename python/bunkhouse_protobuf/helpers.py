@@ -71,6 +71,27 @@ def to_sns_attributes(event: BunkhouseEvent) -> dict:
     }
     if inferred_action:
         attrs["action"] = {"DataType": "String", "StringValue": inferred_action}
+
+    # Extract payload-specific fields for SNS filter routing.
+    if payload_kind == "task":
+        payload = event.task
+        if payload.task_id:
+            attrs["task_id"] = {"DataType": "String", "StringValue": payload.task_id}
+        if payload.repo:
+            attrs["repo"] = {"DataType": "String", "StringValue": payload.repo}
+    elif payload_kind == "step":
+        payload = event.step
+        if payload.task_id:
+            attrs["task_id"] = {"DataType": "String", "StringValue": payload.task_id}
+        if payload.repo:
+            attrs["repo"] = {"DataType": "String", "StringValue": payload.repo}
+        if payload.compute_type:
+            attrs["compute_type"] = {"DataType": "String", "StringValue": payload.compute_type}
+    elif payload_kind == "deployment":
+        payload = event.deployment
+        if payload.repo:
+            attrs["repo"] = {"DataType": "String", "StringValue": payload.repo}
+
     return attrs
 
 

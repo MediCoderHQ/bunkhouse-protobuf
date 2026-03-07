@@ -26,7 +26,8 @@ _original_serialize = BunkhouseEvent.SerializeToString
 
 
 def _patched_serialize(self, deterministic=None):  # type: ignore[override]
-    self.schema_version = _SCHEMA_VERSION_INT
+    if not self.schema_version:
+        self.schema_version = _SCHEMA_VERSION_INT
     if deterministic is not None:
         return _original_serialize(self, deterministic=deterministic)
     return _original_serialize(self)
