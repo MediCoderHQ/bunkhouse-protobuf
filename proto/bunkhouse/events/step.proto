@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// StepEvent represents the execution of a single step within a workflow run.
+// Emitted when a step starts, completes, or fails.
+// Maps to the workflow_run_steps table in the Bunkhouse database.
+message StepEvent {
+  // Task that this step is part of.
+  string task_id = 1;
+
+  // Workflow run instance that contains this step.
+  string run_id = 2;
+
+  // Unique identifier for this step within the run.
+  string step_id = 3;
+
+  // Human-readable name of the step (e.g. "code-review", "deploy").
+  string step_name = 4;
+
+  // Compute type used for this step (e.g. "claude", "bash", "docker").
+  string compute_type = 5;
+
+  // Role assigned to execute this step.
+  string role_id = 6;
+
+  // Repository the step operates on.
+  string repo = 7;
+
+  // Textual output produced by the step, if any.
+  string output = 8;
+
+  // Error message if the step failed, empty otherwise.
+  string error = 9;
+
+  // Workflow definition that produced this run.
+  string workflow_id = 10;
+
+  // Zero-based index of this step within the workflow run.
+  int32 step_index = 11;
+}

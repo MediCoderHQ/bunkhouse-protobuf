@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// TaskEvent represents lifecycle changes to a Bunkhouse task.
+// Emitted when a task is created, updated, completed, or cancelled.
+// Maps to the tasks table in the Bunkhouse database.
+message TaskEvent {
+  // Unique identifier for the task (UUID).
+  string task_id = 1;
+
+  // Repository the task operates on (e.g. "owner/repo").
+  string repo = 2;
+
+  // Epic this task belongs to, if any.
+  string epic_id = 3;
+
+  // Custom event name for user-defined task triggers.
+  string custom_event_name = 4;
+
+  // Arbitrary key-value metadata attached to the task (JSONB-equivalent).
+  google.protobuf.Struct metadata = 5;
+
+  // Workflow instance that owns this task, if driven by a workflow.
+  string workflow_id = 6;
+
+  // Identity that created this task (user, system, or worker ID).
+  string created_by = 7;
+}

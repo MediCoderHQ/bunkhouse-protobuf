@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// WorkflowDefinitionEvent represents the creation or update of a workflow definition.
+// Emitted when a workflow definition is registered, modified, or deactivated.
+// Maps to the workflow_definitions table in the Bunkhouse database.
+message WorkflowDefinitionEvent {
+  // Unique identifier for the workflow definition (slug or UUID).
+  string workflow_id = 1;
+
+  // Full workflow configuration as structured data (JSONB-equivalent).
+  // Contains step definitions, triggers, roles, and other workflow properties.
+  google.protobuf.Struct config = 2;
+
+  // Human-readable description of what this workflow does.
+  string description = 3;
+}

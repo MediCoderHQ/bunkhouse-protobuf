@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// RepoEvent represents a repository-level configuration or lifecycle event.
+// Emitted when a repository is registered with Bunkhouse, updated, or removed.
+// Maps to the repos table in the Bunkhouse database.
+message RepoEvent {
+  // Repository full name (e.g. "owner/repo").
+  string repo = 1;
+
+  // Default branch for this repository (e.g. "main", "master").
+  string default_branch = 2;
+
+  // Repository-level configuration as structured data (JSONB-equivalent).
+  // Contains webhook settings, enabled features, and other per-repo properties.
+  google.protobuf.Struct config = 3;
+}

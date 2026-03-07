@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+import "bunkhouse/events/task.proto";
+import "bunkhouse/events/step.proto";
+import "bunkhouse/events/workflow_run.proto";
+import "bunkhouse/events/github.proto";
+import "bunkhouse/events/deployment.proto";
+import "bunkhouse/events/workflow_def.proto";
+import "bunkhouse/events/repo.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// BunkhouseEvent is the top-level wrapper for all Bunkhouse event types.
+// It carries a typed payload plus envelope metadata (event_id, timestamps, source).
+// Used as the canonical serialization format for the event bus.
+message BunkhouseEvent {
+  // Unique identifier for this event instance (UUID).
+  string event_id = 1;
+
+  // When this event was emitted.
+  google.protobuf.Timestamp occurred_at = 2;
+
+  // Source system that produced this event (e.g. "orchestrator", "github-webhook").
+  string source = 3;
+
+  // Typed payload; exactly one field must be set.
+  oneof payload {
+    TaskEvent task = 4;
+    StepEvent step = 5;
+    WorkflowRunEvent workflow_run = 6;
+    GitHubEvent github = 7;
+    DeploymentEvent deployment = 8;
+    WorkflowDefinitionEvent workflow_def = 9;
+    RepoEvent repo = 10;
+  }
+
+  // Schema version for forward-compatibility.  Fixed at 100 for this generation.
+  uint32 schema_version = 100;
+}
