@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bunkhouse_protobuf"
+dynamic = ["version"]
+description = "Generated protobuf event schemas for Bunkhouse"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = [
+    "grpcio",
+    "protobuf>=4.25.0"
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "bunkhouse_protobuf._version.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bunkhouse_protobuf*"]
+
+[tool.setuptools.package-data]
+bunkhouse_protobuf = ["py.typed"]

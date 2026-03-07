@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Compile proto files -> Python _pb2.py files using grpcio-tools
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROTO_DIR="${REPO_ROOT}/proto"
+OUT_DIR="${REPO_ROOT}/python/bunkhouse_protobuf"
+
+echo "Compiling protos from ${PROTO_DIR} -> ${OUT_DIR}"
+
+# Install codegen tools if not present
+python3 -m pip install --quiet "grpcio-tools>=1.62.0" "protobuf>=4.25.0"
+
+# Find all .proto files
+PROTO_FILES=$(find "${PROTO_DIR}" -name "*.proto")
+
+if [ -z "${PROTO_FILES}" ]; then
+    echo "No .proto files found in ${PROTO_DIR}. Skipping compilation."
+    exit 0
+fi
+
+mkdir -p "${OUT_DIR}"
+
+# Generate Python protobuf stubs
+python3 -m grpc_tools.protoc \
+    -I "${PROTO_DIR}" \
+    --python_out="${OUT_DIR}" \
+    --grpc_python_out="${OUT_DIR}" \
+    ${PROTO_FILES}
+
+echo "Generated files:"
+ls -l "${OUT_DIR}"/*_pb2*.py 2>/dev/null || echo "  (none yet)"
+
+echo "Done."
