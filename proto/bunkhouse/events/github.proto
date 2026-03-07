@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// GitHubEvent represents an event received from the GitHub webhook API.
+// Emitted when Bunkhouse processes a GitHub webhook payload (PR, push, etc.).
+// Covers pull_request, push, and other GitHub event types.
+message GitHubEvent {
+  // Repository the event originates from (e.g. "owner/repo").
+  string repo = 1;
+
+  // Pull request number associated with this event, 0 if not a PR event.
+  int32 pr_number = 2;
+
+  // GitHub event action (e.g. "opened", "closed", "synchronize", "push").
+  string action = 3;
+
+  // Branch name relevant to this event (head branch for PRs, ref for pushes).
+  string branch = 4;
+
+  // GitHub username of the actor that triggered the event.
+  string author = 5;
+
+  // Additional event-specific context (JSONB-equivalent, mirrors raw webhook payload fields).
+  google.protobuf.Struct context = 6;
+}

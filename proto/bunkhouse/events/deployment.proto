@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// DeploymentEvent represents a deployment lifecycle event.
+// Emitted when a deployment is created, updated, or completes.
+// Covers cloud deployments triggered by Bunkhouse workflows.
+message DeploymentEvent {
+  // Unique identifier for this deployment (UUID or provider ID).
+  string deployment_id = 1;
+
+  // Repository that is being deployed (e.g. "owner/repo").
+  string repo = 2;
+
+  // Target environment for the deployment (e.g. "production", "staging").
+  string environment = 3;
+
+  // Service or application being deployed (e.g. "api", "web", "worker").
+  string service = 4;
+
+  // Git commit SHA being deployed.
+  string commit_sha = 5;
+
+  // Arbitrary key-value metadata for the deployment (JSONB-equivalent).
+  google.protobuf.Struct metadata = 6;
+
+  // Pull request number associated with this deployment, 0 if not PR-driven.
+  int32 pr_number = 7;
+}

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// WorkflowRunEvent represents the start or completion of a workflow execution.
+// Emitted when a workflow run is created, progresses, or finishes.
+// Maps to the workflow_runs table in the Bunkhouse database.
+message WorkflowRunEvent {
+  // Task that triggered this workflow run.
+  string task_id = 1;
+
+  // Unique identifier for this workflow run instance (UUID).
+  string run_id = 2;
+
+  // Workflow definition that is being executed.
+  string workflow_id = 3;
+
+  // Repository the workflow run operates on.
+  string repo = 4;
+
+  // What triggered this run (e.g. "http_task_create", "pr_opened", "manual").
+  string trigger = 5;
+
+  // Identifier of the external event that triggered this run, if applicable.
+  string trigger_event_id = 6;
+}
