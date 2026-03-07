@@ -87,12 +87,74 @@ def to_sns_attributes(event: BunkhouseEvent) -> dict:
             attrs["repo"] = {"DataType": "String", "StringValue": payload.repo}
         if payload.compute_type:
             attrs["compute_type"] = {"DataType": "String", "StringValue": payload.compute_type}
+    elif payload_kind == "workflow_run":
+        payload = event.workflow_run
+        if payload.task_id:
+            attrs["task_id"] = {"DataType": "String", "StringValue": payload.task_id}
+        if payload.repo:
+            attrs["repo"] = {"DataType": "String", "StringValue": payload.repo}
     elif payload_kind == "deployment":
         payload = event.deployment
         if payload.repo:
             attrs["repo"] = {"DataType": "String", "StringValue": payload.repo}
 
     return attrs
+
+
+def _extract_task_id(event: BunkhouseEvent) -> str:
+    """Return the task_id from the event payload, or empty string if not found.
+
+    Checks the set oneof payload field and returns the task_id from the
+    appropriate sub-message.  Only task, step, and workflow_run carry a
+    task_id; all other payload kinds return an empty string.
+    """
+    payload_kind = event.WhichOneof("payload") or ""
+    if payload_kind == "task":
+        return event.task.task_id
+    if payload_kind == "step":
+        return event.step.task_id
+    if payload_kind == "workflow_run":
+        return event.workflow_run.task_id
+    return ""
+
+
+def get_message_group_id(event: BunkhouseEvent) -> str:
+    """Return the SNS FIFO ``MessageGroupId`` for *event*.
+
+    Groups messages by the most relevant entity so that ordering is
+    maintained within a logical scope:
+
+    - ``task``, ``step``, ``workflow_run`` → ``task_id`` (per-task ordering)
+    - ``github``, ``deployment``, ``repo`` → ``repo`` field
+    - ``workflow_def`` → ``workflow_id``
+    - Fallback: ``event_id`` (unique per message; no ordering guarantee)
+
+    Args:
+        event: A populated :class:`BunkhouseEvent`.
+
+    Returns:
+        A non-empty string suitable for use as ``MessageGroupId``.
+    """
+    payload_kind = event.WhichOneof("payload") or ""
+
+    if payload_kind in ("task", "step", "workflow_run"):
+        task_id = _extract_task_id(event)
+        if task_id:
+            return task_id
+    elif payload_kind == "github":
+        if event.github.repo:
+            return event.github.repo
+    elif payload_kind == "deployment":
+        if event.deployment.repo:
+            return event.deployment.repo
+    elif payload_kind == "repo":
+        if event.repo.repo:
+            return event.repo.repo
+    elif payload_kind == "workflow_def":
+        if event.workflow_def.workflow_id:
+            return event.workflow_def.workflow_id
+
+    return event.event_id
 
 
 def serialize_for_sns(event: BunkhouseEvent) -> str:
