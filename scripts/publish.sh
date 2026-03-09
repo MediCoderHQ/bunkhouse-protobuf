@@ -28,7 +28,7 @@ CODEARTIFACT_TOKEN=$(aws codeartifact get-authorization-token \
     --query authorizationToken \
     --output text)
 
-ENDPOINT="https://${DOMAIN}-${ACCOUNT_ID}.d.codeartifact.${REGION}.amazonaws.com/pypi/${REPO}/simple/"
+ENDPOINT="https://${DOMAIN}-${ACCOUNT_ID}.d.codeartifact.${REGION}.amazonaws.com/pypi/${REPO}/"
 
 # Optionally bump version
 if [ -n "${VERSION}" ]; then
@@ -40,6 +40,7 @@ fi
 # Build the wheel
 echo "Building wheel..."
 cd "${PYTHON_DIR}"
+rm -rf dist/
 python3 -m pip install --quiet build twine
 python3 -m build --wheel --outdir dist/
 
