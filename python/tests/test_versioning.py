@@ -42,13 +42,13 @@ def test_schema_version_is_integer():
     assert isinstance(evt.schema_version, int)
 
 
-def test_schema_version_for_1_0_0_is_10000():
-    """For package version 1.0.0 the encoded integer must be 10000."""
-    assert __version__ == "1.0.0"
+def test_schema_version_for_1_1_0_is_10100():
+    """For package version 1.1.0 the encoded integer must be 10100."""
+    assert __version__ == "1.1.0"
     evt = create_event("task", "created")
     evt.task.CopyFrom(TaskEvent(task_id="t-1"))
     evt.SerializeToString()
-    assert evt.schema_version == 10000
+    assert evt.schema_version == 10100
 
 
 def test_schema_version_stamped_via_serialize_for_sns():

@@ -6,11 +6,17 @@ the envelope and payload fields survive the round-trip intact.
 """
 
 import bunkhouse_protobuf  # noqa: F401 – triggers monkey-patch
+from bunkhouse_protobuf._version import __version__
 from bunkhouse_protobuf.helpers import (
     create_event,
     deserialize_from_sns,
     serialize_for_sns,
 )
+
+
+def _version_int(version_str: str) -> int:
+    major, minor, patch = (int(p) for p in version_str.split("."))
+    return major * 10000 + minor * 100 + patch
 from bunkhouse.events.task_pb2 import TaskEvent
 from bunkhouse.events.step_pb2 import StepEvent
 from bunkhouse.events.workflow_run_pb2 import WorkflowRunEvent
@@ -222,4 +228,4 @@ def test_roundtrip_preserves_schema_version():
 
     recovered = deserialize_from_sns(body)
 
-    assert recovered.schema_version == 10000
+    assert recovered.schema_version == _version_int(__version__)

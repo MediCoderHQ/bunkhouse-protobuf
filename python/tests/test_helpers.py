@@ -148,8 +148,8 @@ def test_schema_version_survives_roundtrip():
     assert recovered.schema_version == _version_int(__version__)
 
 
-def test_schema_version_is_1_0_0():
-    assert __version__ == "1.0.0"
+def test_schema_version_is_1_1_0():
+    assert __version__ == "1.1.0"
     evt = create_event("task", "created")
     evt.SerializeToString()
-    assert evt.schema_version == 10000
+    assert evt.schema_version == 10100
