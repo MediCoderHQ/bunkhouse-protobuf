@@ -40,4 +40,8 @@ message StepEvent {
 
   // Zero-based index of this step within the workflow run.
   int32 step_index = 11;
+
+  // User who created the task that triggered this step.
+  // Used by the worker to fetch per-user Claude OAuth credentials from S3.
+  string created_by = 12;
 }

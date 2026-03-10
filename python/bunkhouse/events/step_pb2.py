@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x62unkhouse/events/step.proto\x12\x10\x62unkhouse.events\"\xcd\x01\n\tStepEvent\x12\x0f\n\x07task_id\x18\x01 \x01(\t\x12\x0e\n\x06run_id\x18\x02 \x01(\t\x12\x0f\n\x07step_id\x18\x03 \x01(\t\x12\x11\n\tstep_name\x18\x04 \x01(\t\x12\x14\n\x0c\x63ompute_type\x18\x05 \x01(\t\x12\x0f\n\x07role_id\x18\x06 \x01(\t\x12\x0c\n\x04repo\x18\x07 \x01(\t\x12\x0e\n\x06output\x18\x08 \x01(\t\x12\r\n\x05\x65rror\x18\t \x01(\t\x12\x13\n\x0bworkflow_id\x18\n \x01(\t\x12\x12\n\nstep_index\x18\x0b \x01(\x05\x42\x37Z5github.com/bunkhouse/protobuf/gen/go/bunkhouse/eventsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x62unkhouse/events/step.proto\x12\x10\x62unkhouse.events\"\xe1\x01\n\tStepEvent\x12\x0f\n\x07task_id\x18\x01 \x01(\t\x12\x0e\n\x06run_id\x18\x02 \x01(\t\x12\x0f\n\x07step_id\x18\x03 \x01(\t\x12\x11\n\tstep_name\x18\x04 \x01(\t\x12\x14\n\x0c\x63ompute_type\x18\x05 \x01(\t\x12\x0f\n\x07role_id\x18\x06 \x01(\t\x12\x0c\n\x04repo\x18\x07 \x01(\t\x12\x0e\n\x06output\x18\x08 \x01(\t\x12\r\n\x05\x65rror\x18\t \x01(\t\x12\x13\n\x0bworkflow_id\x18\n \x01(\t\x12\x12\n\nstep_index\x18\x0b \x01(\x05\x12\x12\n\ncreated_by\x18\x0c \x01(\tB7Z5github.com/bunkhouse/protobuf/gen/go/bunkhouse/eventsb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,5 +33,5 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z5github.com/bunkhouse/protobuf/gen/go/bunkhouse/events'
   _globals['_STEPEVENT']._serialized_start=50
-  _globals['_STEPEVENT']._serialized_end=255
+  _globals['_STEPEVENT']._serialized_end=275
 # @@protoc_insertion_point(module_scope)
