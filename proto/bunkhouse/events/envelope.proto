@@ -9,6 +9,7 @@ import "bunkhouse/events/github.proto";
 import "bunkhouse/events/deployment.proto";
 import "bunkhouse/events/workflow_def.proto";
 import "bunkhouse/events/repo.proto";
+import "bunkhouse/events/validation.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
@@ -35,6 +36,7 @@ message BunkhouseEvent {
     DeploymentEvent deployment = 8;
     WorkflowDefinitionEvent workflow_def = 9;
     RepoEvent repo = 10;
+    ValidationEvent validation = 11;
   }
 
   // Schema version for forward-compatibility.  Fixed at 100 for this generation.

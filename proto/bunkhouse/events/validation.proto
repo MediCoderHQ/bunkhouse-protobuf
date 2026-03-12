@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package bunkhouse.events;
+
+option go_package = "github.com/bunkhouse/protobuf/gen/go/bunkhouse/events";
+
+// ValidationEvent represents a post-deployment validation lifecycle event.
+// Emitted when a validation run is created, starts executing, or completes.
+message ValidationEvent {
+  string validation_run_id = 1;
+  string task_id = 2;
+  string deployment_id = 3;
+  string environment = 4;
+  int32 attempt = 5;
+  int32 max_attempts = 6;
+  string repo = 7;
+  string commit_sha = 8;
+}
