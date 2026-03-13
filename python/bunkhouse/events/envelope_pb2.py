@@ -29,10 +29,11 @@ from bunkhouse.events import github_pb2 as bunkhouse_dot_events_dot_github__pb2
 from bunkhouse.events import deployment_pb2 as bunkhouse_dot_events_dot_deployment__pb2
 from bunkhouse.events import workflow_def_pb2 as bunkhouse_dot_events_dot_workflow__def__pb2
 from bunkhouse.events import repo_pb2 as bunkhouse_dot_events_dot_repo__pb2
+from bunkhouse.events import validation_pb2 as bunkhouse_dot_events_dot_validation__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1f\x62unkhouse/events/envelope.proto\x12\x10\x62unkhouse.events\x1a\x1b\x62unkhouse/events/task.proto\x1a\x1b\x62unkhouse/events/step.proto\x1a#bunkhouse/events/workflow_run.proto\x1a\x1d\x62unkhouse/events/github.proto\x1a!bunkhouse/events/deployment.proto\x1a#bunkhouse/events/workflow_def.proto\x1a\x1b\x62unkhouse/events/repo.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf6\x03\n\x0e\x42unkhouseEvent\x12\x10\n\x08\x65vent_id\x18\x01 \x01(\t\x12/\n\x0boccurred_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06source\x18\x03 \x01(\t\x12+\n\x04task\x18\x04 \x01(\x0b\x32\x1b.bunkhouse.events.TaskEventH\x00\x12+\n\x04step\x18\x05 \x01(\x0b\x32\x1b.bunkhouse.events.StepEventH\x00\x12:\n\x0cworkflow_run\x18\x06 \x01(\x0b\x32\".bunkhouse.events.WorkflowRunEventH\x00\x12/\n\x06github\x18\x07 \x01(\x0b\x32\x1d.bunkhouse.events.GitHubEventH\x00\x12\x37\n\ndeployment\x18\x08 \x01(\x0b\x32!.bunkhouse.events.DeploymentEventH\x00\x12\x41\n\x0cworkflow_def\x18\t \x01(\x0b\x32).bunkhouse.events.WorkflowDefinitionEventH\x00\x12+\n\x04repo\x18\n \x01(\x0b\x32\x1b.bunkhouse.events.RepoEventH\x00\x12\x16\n\x0eschema_version\x18\x64 \x01(\rB\t\n\x07payloadB7Z5github.com/bunkhouse/protobuf/gen/go/bunkhouse/eventsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1f\x62unkhouse/events/envelope.proto\x12\x10\x62unkhouse.events\x1a\x1b\x62unkhouse/events/task.proto\x1a\x1b\x62unkhouse/events/step.proto\x1a#bunkhouse/events/workflow_run.proto\x1a\x1d\x62unkhouse/events/github.proto\x1a!bunkhouse/events/deployment.proto\x1a#bunkhouse/events/workflow_def.proto\x1a\x1b\x62unkhouse/events/repo.proto\x1a!bunkhouse/events/validation.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xaf\x04\n\x0e\x42unkhouseEvent\x12\x10\n\x08\x65vent_id\x18\x01 \x01(\t\x12/\n\x0boccurred_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06source\x18\x03 \x01(\t\x12+\n\x04task\x18\x04 \x01(\x0b\x32\x1b.bunkhouse.events.TaskEventH\x00\x12+\n\x04step\x18\x05 \x01(\x0b\x32\x1b.bunkhouse.events.StepEventH\x00\x12:\n\x0cworkflow_run\x18\x06 \x01(\x0b\x32\".bunkhouse.events.WorkflowRunEventH\x00\x12/\n\x06github\x18\x07 \x01(\x0b\x32\x1d.bunkhouse.events.GitHubEventH\x00\x12\x37\n\ndeployment\x18\x08 \x01(\x0b\x32!.bunkhouse.events.DeploymentEventH\x00\x12\x41\n\x0cworkflow_def\x18\t \x01(\x0b\x32).bunkhouse.events.WorkflowDefinitionEventH\x00\x12+\n\x04repo\x18\n \x01(\x0b\x32\x1b.bunkhouse.events.RepoEventH\x00\x12\x37\n\nvalidation\x18\x0b \x01(\x0b\x32!.bunkhouse.events.ValidationEventH\x00\x12\x16\n\x0eschema_version\x18\x64 \x01(\rB\t\n\x07payloadB7Z5github.com/bunkhouse/protobuf/gen/go/bunkhouse/eventsb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -40,6 +41,6 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'bunkhouse.events.envelope_p
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z5github.com/bunkhouse/protobuf/gen/go/bunkhouse/events'
-  _globals['_BUNKHOUSEEVENT']._serialized_start=314
-  _globals['_BUNKHOUSEEVENT']._serialized_end=816
+  _globals['_BUNKHOUSEEVENT']._serialized_start=349
+  _globals['_BUNKHOUSEEVENT']._serialized_end=908
 # @@protoc_insertion_point(module_scope)
